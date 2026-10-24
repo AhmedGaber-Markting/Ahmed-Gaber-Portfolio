@@ -3,6 +3,12 @@
   const $ = (s, root=document) => root.querySelector(s);
   const $$ = (s, root=document) => [...root.querySelectorAll(s)];
   const e = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const safeUrl = u => {
+    if (!u) return '#';
+    const s = String(u).trim();
+    if (/^(?:https?:\/\/|\/|\.\/|assets\/|mailto:|tel:)/i.test(s)) return e(s);
+    return '#';
+  };
   const n = (value, digits=0) => Number(value || 0).toLocaleString('en-US',{minimumFractionDigits:digits,maximumFractionDigits:digits});
   let data;
   let socialFilter='all', socialAll=false;
@@ -11,7 +17,7 @@
   const tr = (ar,en) => state.lang==='ar' ? ar : en;
   const loc = obj => typeof obj==='string' ? obj : (obj?.[state.lang] || obj?.ar || obj?.en || '');
   const en = {
-    downloadPortfolio:'Download portfolio PDF',skip:'Skip to content',navSocial:'Social design',navWork:"My work",navReports:'Campaign results',navServices:"Services",navAbout:"About Ahmed",talk:'Let’s talk',hero1:"Ahmed Gaber.",hero2:"Media buyer.<br>AI creative specialist.",heroDesc:"I connect business understanding, paid media and AI creative production. My work brings strategy, testing and analysis together to move each idea toward a clear business objective.",explore:"Explore my work",seeResults:'See the results',markets:"Assiut, Egypt · Projects across Egypt & the Gulf",heroBottom:'An idea starts it. Testing makes the difference.',brandsLabel:'Work across different industries',clientsTitle:"Clients and projects along the way.",clientsDesc:"Experience built with brands and projects across Egypt and the Gulf.",workTitle:'Every project has its own story.',workDesc:"Work I have helped plan, manage or produce, alongside project teams as each brief required. Spanning property, professional services, education, food and ecommerce.",allWork:'Show all projects',reportsTitle:'The numbers behind the work.',reportsDesc:'Separate reports for Vex Agency 1, Vex Agency 2 and Vex Agency 3, with spend, leads, conversations and campaign detail.',snapshot:'Verified data snapshot',period:'1 April — 22 October 2026',accountReport:'AD ACCOUNT REPORT',export:'Download campaign CSV',monthlyTitle:'Monthly performance',spend:'Ad spend',impressions:'Impressions',leads:'Leads',messages:'Conversation starts',clicks:'All clicks',octoberPartial:'October covers 1–22 October only. Zero values are shown as supplied by the source.',numbersContext:'Every metric has a meaning.',reportMeaning:'Leads and conversation starts are separate events and may overlap. They are not sales or a count of unique customers.',messageDefinition:'A conversation start follows at least seven days of inactivity, as defined by Meta.',monthlyTable:'View the monthly numbers',campaignsTitle:'Campaign details',compare:'Three accounts. One clear view.',samePeriod:'Same period and currency',sourceNote:'Source: Meta Ads via Windsor.ai, extracted 23 October 2026. This is a fixed snapshot with no automatic refresh. Historical examples below retain their original periods and definitions.',platformTitle:'Results across platforms.',allEvidence:'Show every platform sample',servicesTitle:"How I can help<br>your next project.",servicesDesc:"I shape the scope around your business, audience and objective, connecting strategy, creative work, paid media and the landing-page experience.",videoTitle:'Ideas worth watching.',videoDesc:'Product ads, service reels and motion graphics. Open any video to watch the complete sample with sound.',allVideos:'Show all videos',plansTitle:'Before the ad, there’s a plan.',plansDesc:'Content calendars, strategies and scripts from actual working files. Browse the original-page previews and read the full detail on the site.',allPlans:'Show all plans',planNote:'Examples of previous planning work. Offers and prices inside the files belong to the context in which they were prepared.',aboutTitle:"Focused on performance.<br>Attentive to the creative.",aboutDesc:"I’m Ahmed Gaber, a media buyer and AI creative specialist working on projects in Egypt, Saudi Arabia and Kuwait. My experience spans property, professional services, education and ecommerce. I connect market understanding, messaging, creative production and campaign management, using the results to inform the next step.",profile:"Explore my experience on LinkedIn",contactTitle:"Your next project.<br>Let’s give it direction.",contactDesc:"Tell me about your business and the outcome you want. We can discuss the scope and the next step for your project.",whatsapp:'Start a WhatsApp conversation',yourName:'Your name',business:'Business name',need:'What do you need?',fullService:'Full-service marketing',paidMedia:'Paid media management',creativeProduction:'Creative & video production',strategy:'Strategy & content',website:'Website or landing page',projectBrief:'Tell me about the project',sendBrief:'Prepare your WhatsApp inquiry',formNote:'Opens WhatsApp with a message ready for you to review and send.',rights:'All rights reserved.',top:'Back to top ↑',loadError:'The portfolio could not load. Please refresh the page.'
+    downloadPortfolio:'Download portfolio PDF',skip:'Skip to content',navSocial:'Social design',navWork:"My work",navReports:'Campaign results',navServices:"Services",navAbout:"About Ahmed",talk:'Let’s talk',hero1:"Ahmed Gaber.",hero2:"Media buyer.<br>AI creative specialist.",heroDesc:"I connect business understanding, paid media and AI creative production. My work brings strategy, testing and analysis together to move each idea toward a clear business objective.",explore:"Explore my work",seeResults:'See the results',markets:"Assiut, Egypt · Projects across Egypt & the Gulf",heroBottom:'An idea starts it. Testing makes the difference.',brandsLabel:'Work across different industries',clientsTitle:"Clients and projects along the way.",clientsDesc:"Experience built with brands and projects across Egypt and the Gulf.",workTitle:'Every project has its own story.',workDesc:"Work I have helped plan, manage or produce, alongside project teams as each brief required. Spanning property, professional services, education, food and ecommerce.",allWork:'Show all projects',reportsTitle:'The numbers behind the work.',reportsDesc:'Separate reports for Vex Agency 1, Vex Agency 2 and Vex Agency 3, with spend, leads, conversations and campaign detail.',snapshot:'Verified data snapshot',period:'1 April — 22 October 2026',accountReport:'AD ACCOUNT REPORT',export:'Download campaign CSV',monthlyTitle:'Monthly performance',spend:'Ad spend',impressions:'Impressions',leads:'Leads',messages:'Conversation starts',clicks:'All clicks',octoberPartial:'October covers 1–22 October only. Zero values are shown as supplied by the source.',numbersContext:'Every metric has a meaning.',reportMeaning:'Leads and conversation starts are separate events and may overlap. They are not sales or a count of unique customers.',messageDefinition:'A conversation start follows at least seven days of inactivity, as defined by Meta.',monthlyTable:'View the monthly numbers',campaignsTitle:'Campaign details',compare:'Three accounts. One clear view.',samePeriod:'Same period and currency',sourceNote:'Source: Meta Ads via Windsor.ai, extracted 23 October 2026. This is a fixed snapshot with no automatic refresh. Historical examples below retain their original periods and definitions.',platformTitle:'Results across platforms.',allEvidence:'Show every platform sample',servicesTitle:"How I can help<br>your next project.",servicesDesc:"I shape the scope around your business, audience and objective, connecting strategy, creative work, paid media and the landing-page experience.",videoTitle:'Ideas worth watching.',videoDesc:'Product ads, service reels and motion graphics. Open any video to watch the complete sample with sound.',allVideos:'Show all videos',plansTitle:'Before the ad, there’s a plan.',plansDesc:'Content calendars, strategies and scripts from actual working files. Browse the original-page previews and read the full detail on the site.',allPlans:'Show all plans',planNote:'Examples of previous planning work. Offers and prices inside the files belong to the context in which they were prepared.',aboutTitle:"Focused on performance.<br>Attentive to the creative.",aboutDesc:"I’m Ahmed Gaber, a media buyer and AI creative specialist working on projects in Egypt, Saudi Arabia and Kuwait. My experience spans property, professional services, education and ecommerce. I connect market understanding, messaging, creative production and campaign management, using the results to inform the next step.",profile:"Explore my experience on LinkedIn",contactTitle:"Your next project.<br>Let’s give it direction.",contactDesc:"Tell me about your business and the outcome you want. We can discuss the scope and the next step for your project.",whatsapp:'Start a WhatsApp conversation',yourName:'Your name',business:'Business name',need:'What do you need?',fullService:'Full-service marketing',paidMedia:'Paid media management',creativeProduction:'Creative & video production',strategy:'Strategy & content',website:'Website or landing page',projectBrief:'Tell me about the project',sendBrief:'Prepare your WhatsApp inquiry',formNote:'Opens WhatsApp with a message ready for you to review and send.',rights:'All rights reserved.',top:'Back to top ↑',loadError:'The portfolio could not load. Please refresh the page.',sharePortfolio:'Share portfolio',viewLinkedinCV:'Executive CV (LinkedIn) ↗'
   };
   $$('[data-t]').forEach(el => el.dataset.ar=el.innerHTML);
   const labels={spend:()=>tr('الإنفاق الإعلاني','Ad spend'),impressions:()=>tr('مرات الظهور','Impressions'),clicks:()=>tr('جميع النقرات','All clicks'),actions_lead:()=>tr('عملاء محتملون','Leads'),actions_onsite_conversion_messaging_conversation_started_7d:()=>tr('بدايات المحادثات','Conversation starts')};
@@ -108,7 +114,7 @@
     const root=$('#social-content');
     if(!root)return;
     const samples=data.socialSamples||[];
-    root.innerHTML=`<div class="section-top"><div><p class="eyebrow" dir="ltr">SOCIAL CONTENT / SELECTED PROJECTS</p><h2>${tr('تصاميم منشورة. وشغل يتشاف.','Published creative. Work you can see.')}</h2></div><p class="section-description">${tr('عينات منشورة من تصاميم ومحتوى المشاريع التي عملت عليها مع فرق العمل. افتح التصميم لمشاهدته كاملًا وقراءة نص المنشور والوصول إلى أصله.','Published visuals and content from projects I worked on with creative teams. Open a design to see it in full, read its caption and visit the source.')}</p></div><div id="social-filters" class="filter-row" aria-label="${tr('تصنيف عينات السوشيال','Filter social samples')}"></div><div id="social-grid" class="social-grid"></div><div class="more-row"><p id="social-count"></p><button id="social-more" type="button" class="text-link"><span>${toggleLabel(socialAll,'عرض كل التصاميم','Show all designs')}</span><span aria-hidden="true">↓</span></button></div><div class="social-pages"><span>${tr('صفحات العملاء','Client pages')}</span>${(data.socialPages||[]).map(page=>`<a href="${e(page.url)}" target="_blank" rel="noopener noreferrer">${e(loc(page.name))} ↗</a>`).join('')}</div><p class="small-note">${tr('العينات معروضة كأعمال سابقة؛ العروض والأسعار داخل التصاميم تخص وقت نشرها.','These are portfolio samples. Offers and prices within the creative belong to its original publication context.')}</p>`;
+    root.innerHTML=`<div class="section-top"><div><p class="eyebrow" dir="ltr">SOCIAL CONTENT / SELECTED PROJECTS</p><h2>${tr('تصاميم منشورة. وشغل يتشاف.','Published creative. Work you can see.')}</h2></div><p class="section-description">${tr('عينات منشورة من تصاميم ومحتوى المشاريع التي عملت عليها مع فرق العمل. افتح التصميم لمشاهدته كاملًا وقراءة نص المنشور والوصول إلى أصله.','Published visuals and content from projects I worked on with creative teams. Open a design to see it in full, read its caption and visit the source.')}</p></div><div id="social-filters" class="filter-row" aria-label="${tr('تصنيف عينات السوشيال','Filter social samples')}"></div><div id="social-grid" class="social-grid"></div><div class="more-row"><p id="social-count"></p><button id="social-more" type="button" class="text-link"><span>${toggleLabel(socialAll,'عرض كل التصاميم','Show all designs')}</span><span aria-hidden="true">↓</span></button></div><div class="social-pages"><span>${tr('صفحات العملاء','Client pages')}</span>${(data.socialPages||[]).map(page=>`<a href="${safeUrl(page.url)}" target="_blank" rel="noopener noreferrer">${e(loc(page.name))} ↗</a>`).join('')}</div><p class="small-note">${tr('العينات معروضة كأعمال سابقة؛ العروض والأسعار داخل التصاميم تخص وقت نشرها.','These are portfolio samples. Offers and prices within the creative belong to its original publication context.')}</p>`;
     renderFilters('#social-filters',[['all','الكل','All designs'],['qelaa','قلاع','Qelaa'],['boulevard','بوليفارد','Boulevard'],['gizawy','الجيزاوي','El Gezawy'],['doctor','دكتور بلس','Doctor Plus']],socialFilter,key=>{socialFilter=key;socialAll=false;renderSocial();});
     const filtered=samples.filter(sample=>socialFilter==='all'||sample.project===socialFilter);
     const shown=socialAll?filtered:filtered.slice(0,8);
@@ -120,7 +126,7 @@
   }
   function openSocial(id){
     const sample=(data.socialSamples||[]).find(x=>x.id===id);if(!sample)return;
-    showViewer(loc(sample.title),loc(sample.brand)+' / SOCIAL CREATIVE',`<div id="viewer-media"></div><div class="social-source-actions"><a class="source-link" href="${e(sample.postUrl)}" target="_blank" rel="noopener noreferrer">${tr('المنشور الأصلي على فيسبوك','Original Facebook post')} ↗</a><a class="source-link" href="${e(sample.pageUrl)}" target="_blank" rel="noopener noreferrer">${tr('صفحة العميل','Client page')} ↗</a></div><h3 class="caption-heading">${tr('نص المنشور','Original caption')}</h3><p class="original-caption" dir="auto">${e(sample.caption)}</p>`);
+    showViewer(loc(sample.title),loc(sample.brand)+' / SOCIAL CREATIVE',`<div id="viewer-media"></div><div class="social-source-actions"><a class="source-link" href="${safeUrl(sample.postUrl)}" target="_blank" rel="noopener noreferrer">${tr('المنشور الأصلي على فيسبوك','Original Facebook post')} ↗</a><a class="source-link" href="${safeUrl(sample.pageUrl)}" target="_blank" rel="noopener noreferrer">${tr('صفحة العميل','Client page')} ↗</a></div><h3 class="caption-heading">${tr('نص المنشور','Original caption')}</h3><p class="original-caption" dir="auto">${e(sample.caption)}</p>`);
     setupMedia([{type:'image',src:sample.src,alt:sample.title}]);
   }
   function renderServices(){
@@ -165,7 +171,7 @@
     const related=data.documents.filter(d=>(p.documents||[]).includes(d.id));
     showViewer(loc(p.title),loc(p.category),`<div id="viewer-media"></div><div class="tag-list">${p.tags.map(x=>`<span>${e(x)}</span>`).join('')}</div><div class="project-description"><div><h3>${tr('فكرة المشروع','The project')}</h3><p>${e(loc(p.scope))}</p></div><div><h3>${tr('نطاق العمل','Scope of work')}</h3><ul>${(loc(p.contribution)||[]).map(x=>`<li>${e(x)}</li>`).join('')}</ul></div></div>${cases.map(c=>`<section class="related-plans"><h3>${e(loc(c.title))}</h3>${chips(c.metrics)}<p class="source-note">${e(loc(c.note))}</p></section>`).join('')}${related.length?`<section class="related-plans"><h3>${tr('خطط مرتبطة بالمشروع','Related plans')}</h3>${related.map(d=>`<button type="button" data-plan="${e(d.id)}">${e(loc(d.title))} ↗</button>`).join('')}</section>`:''}<a class="source-link" href="https://wa.me/201020969108?text=${encodeURIComponent(tr('أرغب في مناقشة مشروع مشابه لـ ','I’d like to discuss a project similar to ')+loc(p.title))}" target="_blank" rel="noopener noreferrer">${tr('نناقش مشروعك؟','Let’s discuss your project')} ↗</a>`);
     setupMedia(p.media);
-    if(p.socialPage)$('#viewer-body').insertAdjacentHTML('beforeend',`<a class="source-link" href="${e(p.socialPage)}" target="_blank" rel="noopener noreferrer">${tr('استعرض أعمال الصفحة','Explore the Facebook page')} ↗</a>`);
+    if(p.socialPage)$('#viewer-body').insertAdjacentHTML('beforeend',`<a class="source-link" href="${safeUrl(p.socialPage)}" target="_blank" rel="noopener noreferrer">${tr('استعرض أعمال الصفحة','Explore the Facebook page')} ↗</a>`);
     $$('[data-plan]',viewer).forEach(btn=>btn.addEventListener('click',()=>openPlan(btn.dataset.plan)));
   }
   function openVideo(id){const v=data.videoSamples.find(v=>v.id===id);if(!v)return;showViewer(loc(v.title),'AI VIDEO / AG',`<div id="viewer-media"></div><a class="source-link" href="#work" id="related-project">${tr('استعرض المشروع كاملًا','Explore the full project')} ↗</a>`);setupMedia([{type:'video',src:v.src,poster:v.poster,alt:v.title}]);$('#related-project').addEventListener('click',evt=>{evt.preventDefault();openProject(v.project);});}
@@ -177,7 +183,7 @@
   function openPlan(id){
     const doc=data.documents.find(d=>d.id===id);if(!doc)return;
     const blocks=(doc.blocks||[]).map(b=>b.type==='heading'?`<h3>${e(b.text)}</h3>`:b.type==='table'?`<div class="table-wrap"><table><tbody>${b.rows.map((row,i)=>`<tr>${row.map(cell=>`<${i?'td':'th'}>${e(cell)}</${i?'td':'th'}>`).join('')}</tr>`).join('')}</tbody></table></div>`:`<p>${e(b.text)}</p>`).join('');
-    showViewer(loc(doc.title),`${doc.brand||'CONTENT STRATEGY'} / ${doc.format}`,`<p class="source-note">${e(loc(doc.description))}</p><a class="source-link" href="${e(doc.viewPdf||doc.src)}" target="_blank" rel="noopener noreferrer">${tr('افتح الملف كاملًا','Open the complete file')} ↗</a> <a class="source-link" href="${e(doc.src)}" download>${tr('تنزيل الأصل','Download original')} ↙</a><div class="document-pages">${(doc.previews||[]).map((src,i)=>`<img src="${e(src)}" loading="lazy" alt="${e(loc(doc.title)+' — '+tr('صفحة ','page ')+(doc.previewSourcePages?.[i]||i+1))}">`).join('')}</div>${blocks?`<details class="monthly-details"><summary>${tr('قراءة محتوى الخطة بالكامل داخل الموقع','Read the complete plan on this site')}</summary><article class="document-text" dir="rtl" lang="ar">${blocks}</article></details>`:''}<p class="source-note">${tr('تخص العروض والأسعار سياق إعداد الملف.','Offers and prices belong to the file’s original preparation context.')}</p>`);
+    showViewer(loc(doc.title),`${doc.brand||'CONTENT STRATEGY'} / ${doc.format}`,`<p class="source-note">${e(loc(doc.description))}</p><a class="source-link" href="${safeUrl(doc.viewPdf||doc.src)}" target="_blank" rel="noopener noreferrer">${tr('افتح الملف كاملًا','Open the complete file')} ↗</a> <a class="source-link" href="${safeUrl(doc.src)}" download>${tr('تنزيل الأصل','Download original')} ↙</a><div class="document-pages">${(doc.previews||[]).map((src,i)=>`<img src="${e(src)}" loading="lazy" alt="${e(loc(doc.title)+' — '+tr('صفحة ','page ')+(doc.previewSourcePages?.[i]||i+1))}">`).join('')}</div>${blocks?`<details class="monthly-details"><summary>${tr('قراءة محتوى الخطة بالكامل داخل الموقع','Read the complete plan on this site')}</summary><article class="document-text" dir="rtl" lang="ar">${blocks}</article></details>`:''}<p class="source-note">${tr('تخص العروض والأسعار سياق إعداد الملف.','Offers and prices belong to the file’s original preparation context.')}</p>`);
   }
   function closeViewer(){viewer.close();}
   $('#viewer-close').addEventListener('click',closeViewer);
@@ -251,6 +257,57 @@
   $('#report-export').addEventListener('click',exportCSV);
   $('#brief-form').addEventListener('submit',evt=>{evt.preventDefault();const values=new FormData(evt.currentTarget),service=$('select[name=service] option:checked',evt.currentTarget).textContent;const message=tr('مرحبًا أحمد،\n','Hello Ahmed,\n')+[tr('الاسم: ','Name: ')+values.get('name'),tr('النشاط: ','Business: ')+values.get('business'),tr('الخدمة المطلوبة: ','Service: ')+service,tr('نبذة عن المشروع: ','Project brief: ')+values.get('brief')].join('\n');window.open('https://wa.me/201020969108?text='+encodeURIComponent(message),'_blank','noopener,noreferrer');});
   $('#year').textContent=new Date().getFullYear();
+
+  function showToast(message){
+    let toast=$('#portfolio-toast');
+    if(!toast){
+      toast=document.createElement('div');
+      toast.id='portfolio-toast';
+      toast.className='portfolio-toast';
+      toast.setAttribute('role','status');
+      toast.setAttribute('aria-live','polite');
+      document.body.appendChild(toast);
+    }
+    toast.textContent=message;
+    toast.classList.add('show');
+    clearTimeout(toast._timer);
+    toast._timer=setTimeout(()=>toast.classList.remove('show'),2800);
+  }
+
+  $$('[data-copy]').forEach(btn=>{
+    btn.addEventListener('click',async()=>{
+      const val=btn.dataset.copy;
+      try{
+        await navigator.clipboard.writeText(val);
+        const msg=val.includes('@')?tr('تم نسخ البريد الإلكتروني بنجاح ✓','Email copied to clipboard ✓'):tr('تم نسخ رقم الهاتف بنجاح ✓','Phone number copied ✓');
+        showToast(msg);
+        btn.classList.add('copied');
+        setTimeout(()=>btn.classList.remove('copied'),1800);
+      }catch{
+        showToast(val);
+      }
+    });
+  });
+
+  $$('.share-trigger').forEach(btn=>{
+    btn.addEventListener('click',async()=>{
+      const shareData={
+        title:'أحمد جابر | Media Buyer & AI Creative Specialist',
+        text:tr('أحمد جابر — ميديا باير وأخصائي إنتاج إبداعي بالذكاء الاصطناعي','Ahmed Gaber — Media Buyer & AI Creative Specialist'),
+        url:window.location.href.split('#')[0]
+      };
+      if(navigator.share){
+        try{await navigator.share(shareData);}catch{}
+      }else{
+        try{
+          await navigator.clipboard.writeText(shareData.url);
+          showToast(tr('تم نسخ رابط الموقع بنجاح ✓','Portfolio link copied to clipboard ✓'));
+        }catch{
+          showToast(shareData.url);
+        }
+      }
+    });
+  });
   // A bundled copy keeps the portfolio usable from a folder and during a JSON loading failure.
   const bundledData=window.AHMED_PORTFOLIO_DATA;
   const validContent=value=>value && value.projects && Array.isArray(value.documents) && Array.isArray(value.reports?.accounts);
