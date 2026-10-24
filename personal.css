@@ -75,7 +75,10 @@ html[dir=ltr] .hero h1>.accent { font-size: .68em; line-height: 1.4; letter-spac
 
 /* Use Ahmed's portrait in the about section, within the existing circular frame. */
 .about-identity .about-portrait img{
-  width:100%;height:auto;aspect-ratio:1;object-fit:cover;object-position:50% 32%;
+  width:100%;height:auto;aspect-ratio:1;object-fit:cover;object-position:50% 20%;
   border:1px solid #d9b86b8c;border-radius:50%;background:#030305;
   box-shadow:0 0 0 7px #09090dcc,0 0 45px #b899ff12,0 16px 40px #0009;
 }
+
+/* Latest supplied portrait retains its original color and details. */
+.personal-portrait img{object-fit:cover;object-position:50% 20%}
