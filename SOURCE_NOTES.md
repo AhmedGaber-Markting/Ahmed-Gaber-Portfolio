@@ -12,3 +12,5 @@ All files required to serve the static website are included. There are no API ke
 
 
 GitHub-ready personal update, 24 October 2026: includes the delivered 48-page personal PDF (14,625,233 bytes), restores the missing Qelaa awareness page-two preview from the original PDF, and uses actual strategy pages as gallery covers for the landscape plans. The complete document preview order and sanitized Qodoraty PDF remain intact. A generated content-data.js fallback supports local file viewing and JSON-loading failures; tools/sync-content.py keeps it aligned with content.json. One social display title was shortened to omit a malformed URL; the original caption and source link remain unchanged. Report metrics, project associations, source media and account naming are preserved.
+
+About-photo correction: the about section now uses Ahmed's existing portrait inside the circular frame in place of the AG mark. The source portrait bytes are unchanged; framing uses CSS. The header logo remains the personal AG identifier.
