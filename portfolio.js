@@ -104,7 +104,7 @@
   }
   function renderPlans(){
     const shown=state.plansAll?data.documents:data.documents.slice(0,4);
-    $('#plan-grid').innerHTML=shown.map(doc=>`<button type="button" class="plan-card" data-doc="${e(doc.id)}"><div class="plan-preview ${doc.previewLayout==='landscape'?'landscape':''}"><img src="${e(doc.coverPreview||doc.previews?.[0]||'assets/brand/ahmed-mark.svg')}" alt="${e(loc(doc.title))}" loading="lazy" width="500" height="700"><span class="file-badge" dir="ltr">${e(doc.format)} / ${doc.pages||'PLAN'}</span></div><h3>${e(loc(doc.title))}</h3><p>${e(doc.brand||'CONTENT STRATEGY')} · ${tr('معاينة الملف','Open the preview')} ↗</p></button>`).join('');
+    $('#plan-grid').innerHTML=shown.map(doc=>`<button type="button" class="plan-card" data-doc="${e(doc.id)}"><div class="plan-preview ${doc.previewLayout==='landscape'?'landscape':''}"><img src="${e(doc.coverPreview||doc.previews?.[0]||'assets/brand/ahmed-mark.png')}" alt="${e(loc(doc.title))}" loading="lazy" width="500" height="700"><span class="file-badge" dir="ltr">${e(doc.format)} / ${doc.pages||'PLAN'}</span></div><h3>${e(loc(doc.title))}</h3><p>${e(doc.brand||'CONTENT STRATEGY')} · ${tr('معاينة الملف','Open the preview')} ↗</p></button>`).join('');
     $$('[data-doc]',$('#plan-grid')).forEach(btn=>btn.addEventListener('click',()=>openPlan(btn.dataset.doc)));
     $('#plan-count').textContent=countCopy(shown.length,data.documents.length,'خطة وملفًا','plans & files');
     $('#plan-more').hidden=data.documents.length<=4;
