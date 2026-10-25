@@ -1866,8 +1866,49 @@ html, body {
   .work-grid {
     grid-template-columns: 1fr;
   }
+  .pipeline {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 28px;
+  }
+  .pipeline::before, .pipeline-beam {
+    display: none !important;
+  }
   .p-step {
     flex: 1 1 100%;
+    background: rgba(20, 19, 27, 0.7);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    text-align: start;
+    gap: 18px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s, border-color 0.25s, background 0.25s;
+  }
+  .p-step:hover {
+    border-color: var(--gold-line);
+    background: rgba(24, 22, 33, 0.95);
+  }
+  .p-step-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.35rem;
+    margin: 0;
+    flex-shrink: 0;
+  }
+  .p-step-label {
+    font-size: 0.98rem;
+    margin-bottom: 4px;
+  }
+  .p-step-sub {
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+  .market-orbit {
+    margin-inline: auto;
   }
   .faq-question {
     padding: 16px 18px;
@@ -1889,6 +1930,36 @@ html, body {
     font-size: 14.5px;
     gap: 16px;
   }
+  .market-row-item, .market-row-item.reverse {
+    padding: 24px 16px;
+    gap: 20px;
+  }
+  .market-orbit {
+    width: 180px;
+    height: 180px;
+    margin-inline: auto;
+  }
+  .market-orbit-center {
+    width: 62px;
+    height: 62px;
+    margin: -31px 0 0 -31px;
+    font-size: 1.8rem;
+  }
+  .landing-content {
+    padding: 20px 16px;
+  }
+  .evidence-copy {
+    padding: 16px 14px;
+  }
+  .p-step {
+    padding: 14px 16px;
+    gap: 14px;
+  }
+  .p-step-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 1.2rem;
+  }
   .proof-metric strong {
     font-size: 1.3rem;
   }
@@ -1907,6 +1978,12 @@ html, body {
   .landing-btn-preview, .landing-btn-cta {
     width: 100%;
   }
+}
+
+/* Visibility guarantee for revealed elements */
+.reveal.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 /* Navigation Drawer for Tablets & Narrow Screens (<= 960px) */

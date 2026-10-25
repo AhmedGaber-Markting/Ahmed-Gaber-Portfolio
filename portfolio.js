@@ -46,6 +46,7 @@
     $('#work-count').textContent=countCopy(shown.length,projects.length,'مشروعًا','projects');
     $('#work-more').hidden=projects.length<=9;
     $('#work-more').firstElementChild.textContent=toggleLabel(state.workAll,'عرض كل الأعمال','Show all projects');
+    observeReveals();
   }
   function selectedAccount(){return data.reports.accounts.find(a=>a.id===state.account);}
   function table(head, rows){return `<table><thead><tr>${head.map(x=>`<th scope="col">${e(x)}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table>`;}
@@ -103,7 +104,7 @@
       const pInfo = platformBadges[r.platform] || { label: r.platform.toUpperCase(), class: 'badge-default' };
       const secMetric = r.metrics[1] ? `<div class="proof-sec-metric"><span dir="ltr">${e(r.metrics[1].value)}</span><small>${e(loc(r.metrics[1].label))}</small></div>` : '';
       return `
-        <article class="evidence-card reveal" data-proof="${e(r.id)}" role="button" tabindex="0" aria-label="${e(tr('استعراض نتيجة ','View proof: ')+loc(r.title))}">
+        <article class="evidence-card" data-proof="${e(r.id)}" role="button" tabindex="0" aria-label="${e(tr('استعراض نتيجة ','View proof: ')+loc(r.title))}">
           <div class="evidence-thumb-frame">
             <img src="${e(r.image)}" alt="${e(loc(r.title))}" width="600" height="320" loading="lazy">
             <span class="evidence-platform-tag ${pInfo.class}"><span class="tag-dot"></span>${pInfo.label}</span>
@@ -132,6 +133,7 @@
     });
     $('#evidence-more').hidden=rows.length<=3;
     $('#evidence-more').firstElementChild.textContent=toggleLabel(state.evidenceAll,'عرض كل عينات المنصة','Show every platform sample');
+    observeReveals();
   }
   function renderVideos(){
     renderFilters('#video-filters',[['all','كل الفيديوهات','All videos'],['engineering','قلاع الهندسة','Qelaa Engineering'],['telecom','الاتصالات','Telecom'],['doctor','دكتور بلس','Doctor Plus'],['other','المنتجات والعقارات','Products & property']],state.video,key=>{state.video=key;state.videoAll=false;renderVideos();});
@@ -142,6 +144,7 @@
     $('#video-count').textContent=countCopy(shown.length,rows.length,'فيديو','videos');
     $('#video-more').hidden=rows.length<=5;
     $('#video-more').firstElementChild.textContent=toggleLabel(state.videoAll,'عرض كل الفيديوهات','Show all videos');
+    observeReveals();
   }
   function renderPlans(){
     const shown=state.plansAll?data.documents:data.documents.slice(0,4);
@@ -150,6 +153,7 @@
     $('#plan-count').textContent=countCopy(shown.length,data.documents.length,'خطة وملفًا','plans & files');
     $('#plan-more').hidden=data.documents.length<=4;
     $('#plan-more').firstElementChild.textContent=toggleLabel(state.plansAll,'عرض كل الخطط','Show all plans');
+    observeReveals();
   }
   function renderSocial(){
     const root=$('#social-content');
@@ -164,6 +168,7 @@
     $('#social-count').textContent=countCopy(shown.length,filtered.length,'تصميمًا أصليًا','original designs');
     $('#social-more').hidden=filtered.length<=8;
     $('#social-more').addEventListener('click',()=>{socialAll=!socialAll;renderSocial();});
+    observeReveals();
   }
   function openSocial(id){
     const sample=(data.socialSamples||[]).find(x=>x.id===id);if(!sample)return;
@@ -182,7 +187,7 @@
     const root = $('#landing-grid');
     if(!root || !data.landingPages) return;
     root.innerHTML = data.landingPages.map(lp => `
-      <article class="landing-card reveal">
+      <article class="landing-card">
         <div class="landing-media" data-landing="${e(lp.id)}" role="button" tabindex="0" aria-label="${e(tr('معاينة صفحة هبوط ','Preview landing page ')+loc(lp.title))}">
           <img src="${e(lp.thumbnail)}" alt="${e(loc(lp.title))}" loading="lazy" width="640" height="360">
           <span class="landing-badge">${e(lp.tags?.[0]||'LANDING PAGE')}</span>
@@ -207,6 +212,7 @@
       </article>
     `).join('');
     $$('[data-landing]', root).forEach(el => el.addEventListener('click', () => openLandingPage(el.dataset.landing)));
+    observeReveals();
   }
 
   function openLandingPage(id){
@@ -240,7 +246,7 @@
     const root = $('#markets-rows');
     if(!root || !data.marketsData) return;
     root.innerHTML = data.marketsData.map((m, idx) => `
-      <div class="market-row-item reveal ${idx % 2 === 1 ? 'reverse' : ''}">
+      <div class="market-row-item ${idx % 2 === 1 ? 'reverse' : ''}">
         <div class="market-orbit">
           <div class="orbit-ring-outer">
             <div class="orbit-spin">
@@ -271,13 +277,14 @@
         </div>
       </div>
     `).join('');
+    observeReveals();
   }
 
   function renderFaqs(){
     const root = $('#faq-accordion');
     if(!root || !data.faqs) return;
     root.innerHTML = data.faqs.map(f => `
-      <details class="faq-item reveal">
+      <details class="faq-item">
         <summary class="faq-question">
           <span>${e(loc(f.q))}</span>
           <span class="faq-chevron" aria-hidden="true">▾</span>
@@ -287,6 +294,7 @@
         </div>
       </details>
     `).join('');
+    observeReveals();
   }
 
 
@@ -365,20 +373,42 @@
   motionPreference.addEventListener('change',()=>{clientsPaused=motionPreference.matches;updateClientsMotion();observeReveals();});
   const revealObserver='IntersectionObserver' in window?new IntersectionObserver(entries=>{
     entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target);}});
-  },{threshold:0.05,rootMargin:'0px 0px 30px 0px'}):null;
+  },{threshold:0.01,rootMargin:'0px 0px 100px 0px'}):null;
   function observeReveals(){
     if(!revealObserver || motionPreference.matches){
       document.documentElement.classList.remove('motion-ready');
+      $$('.reveal').forEach(el=>el.classList.add('is-visible'));
       return;
     }
     document.documentElement.classList.add('motion-ready');
-    $$('.section-top,.service-item,.project-card,.landing-card,.market-row-item,.p-step,.faq-item,.social-card,.video-card,.plan-card,.about-copy,.about-brand,.contact-layout>div,.contact form').forEach((el,i)=>{
-      if(el.classList.contains('reveal'))return;
+    const selector = '.section-top, .service-item, .project-card, .landing-card, .market-row-item, .p-step, .faq-item, .evidence-card, .social-card, .video-card, .plan-card, .about-copy, .about-brand, .contact-layout>div, .contact form, .reveal';
+    $$(selector).forEach((el,i)=>{
+      if(el.classList.contains('is-visible'))return;
       el.classList.add('reveal');
-      el.style.setProperty('--reveal-delay',`${i%3*45}ms`);
-      revealObserver.observe(el);
+      if(!el.style.getPropertyValue('--reveal-delay')){
+        el.style.setProperty('--reveal-delay',`${(i%3)*45}ms`);
+      }
+      const rect = el.getBoundingClientRect();
+      if(rect.top < window.innerHeight + 80 && rect.bottom > -50){
+        el.classList.add('is-visible');
+      } else {
+        revealObserver.observe(el);
+      }
     });
   }
+  // Safety net on scroll for dynamic viewports
+  window.addEventListener('scroll',()=>{
+    if(!revealObserver || motionPreference.matches) return;
+    const pending = $$('.reveal:not(.is-visible)');
+    if(!pending.length) return;
+    const vh = window.innerHeight;
+    pending.forEach(el=>{
+      const r = el.getBoundingClientRect();
+      if(r.top < vh + 100 && r.bottom > -50){
+        el.classList.add('is-visible');
+      }
+    });
+  },{passive:true});
   let scrollQueued=false;
   function updateScrollProgress(){
     const available=document.documentElement.scrollHeight-window.innerHeight;
