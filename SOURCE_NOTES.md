@@ -16,3 +16,18 @@ GitHub-ready personal update, 24 October 2026: includes the delivered 48-page pe
 About-photo correction: the about section now uses Ahmed's existing portrait inside the circular frame in place of the AG mark. The source portrait bytes are unchanged; framing uses CSS. The header logo remains the personal AG identifier.
 
 Latest supplied portrait update: the user's 1280x1239 JPEG is now used in both the hero and about sections. Its original bytes are copied to assets/brand/ahmed-gaber-profile-20261024.jpg and embedded into the two visible image elements in index.html so replacing the page is sufficient to display it. The section no longer references the AG mark. No image generation or raster retouching was applied.
+
+Directional Portrait System (Arabic & English):
+Dedicated portrait files are maintained in assets/brand/ to guarantee Ahmed Gaber's gaze is always directed inward toward the accompanying headline and content across both languages and sections:
+- Hero Section (#home):
+  - Arabic (RTL): content on right, card on left -> ahmed-gaber-hero-ar.jpg (gaze directed right towards Arabic text)
+  - English (LTR): content on left, card on right -> ahmed-gaber-hero-en.jpg (gaze directed left towards English text)
+- About Section (#about):
+  - Arabic (RTL): card on right, content on left -> ahmed-gaber-about-ar.jpg (gaze directed left towards Arabic text)
+  - English (LTR): card on left, content on right -> ahmed-gaber-about-en.jpg (gaze directed right towards English text)
+Initial HTML and runtime language toggling dynamically synchronize both elements with zero layout shift.
+
+Navigation & Actions refinement:
+- The redundant static text link "العودة للأعلى ↑" at the bottom of the footer was removed in favor of the persistent, smooth-scrolling floating button (#fab-back-top). The footer layout was balanced with the PDF download action aligned opposite the copyright notice.
+
+
