@@ -55,7 +55,7 @@ python3 -m http.server 8080
 
 1. عدّل `content.json`: المشاريع في `projects`، الفيديوهات في `videoSamples`، الخطط في `documents`، التصاميم في `socialSamples`، العملاء في `clients`، والتقارير في `reports`.
 2. شغّل `python3 tools/sync-content.py` أو `py tools/sync-content.py` على Windows لتحديث `content-data.js`.
-3. ارفع الملفين والوسائط التي أضفتها. على HTTP يقرأ الموقع JSON أولًا، وعند فتحه كملف محلي يستخدم النسخة الاحتياطية.
+3. ارفع الملفين والوسائط التي أضفتها. يستخدم الموقع `content-data.js` المتزامن مباشرة على HTTP وعند فتحه كملف محلي، لتجنب تنزيل المحتوى مرتين؛ ويظل `content.json` مصدر التعديل.
 
 النصوص العربية الأساسية في HTML، والترجمة الإنجليزية في كائن `en` داخل `portfolio.js`. الحقل `coverPreview` يحدد صورة الخطة في المعرض دون تغيير ترتيب صفحاتها عند فتحها.
 

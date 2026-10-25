@@ -46,7 +46,7 @@
     renderFilters('#work-filters',filters,state.work,key=>{state.work=key;state.workAll=false;renderWork();});
     const projects=Object.values(data.projects).filter(p=>state.work==='all'||p.filters.includes(state.work));
     const shown=state.workAll?projects:projects.slice(0,9);
-    $('#work-grid').innerHTML=shown.map(p=>`<button class="project-card" type="button" data-project="${e(p.id)}" aria-label="${e(tr('استعرض مشروع ','Explore ')+loc(p.title))}"><div class="project-image ${p.filters.every(f=>f==='performance'||f==='content')?'contain':''}"><span class="project-index">${String(Object.keys(data.projects).indexOf(p.id)+1).padStart(2,'0')} / AG</span><img src="${e(p.thumbnail)}" alt="${e(loc(p.title))}" loading="lazy" width="600" height="480"><span class="project-arrow" aria-hidden="true">↗</span></div><div class="project-info"><div><h3>${e(loc(p.title))}</h3><p class="project-category">${e(loc(p.category))}</p></div><span class="project-tag" dir="ltr">${e(p.tags?.[0]||'CREATIVE WORK')}</span></div></button>`).join('');
+    $('#work-grid').innerHTML=shown.map((p,i)=>`<button class="project-card" type="button" data-project="${e(p.id)}" aria-label="${e(tr('استعرض مشروع ','Explore ')+loc(p.title))}"><div class="project-image ${p.filters.every(f=>f==='performance'||f==='content')?'contain':''}"><span class="project-index">${String(Object.keys(data.projects).indexOf(p.id)+1).padStart(2,'0')} / AG</span><img src="${e(p.thumbnail)}" alt="${e(loc(p.title))}" loading="${i<2?'eager':'lazy'}" decoding="async" width="600" height="480"><span class="project-arrow" aria-hidden="true">↗</span></div><div class="project-info"><div><h3>${e(loc(p.title))}</h3><p class="project-category">${e(loc(p.category))}</p></div><span class="project-tag" dir="ltr">${e(p.tags?.[0]||'CREATIVE WORK')}</span></div></button>`).join('');
     $$('[data-project]',$('#work-grid')).forEach(btn=>btn.addEventListener('click',()=>openProject(btn.dataset.project)));
     $('#work-count').textContent=countCopy(shown.length,projects.length,'مشروعًا','projects');
     $('#work-more').hidden=projects.length<=9;
@@ -576,11 +576,11 @@
       }
     });
   });
-  // A bundled copy keeps the portfolio usable from a folder and during a JSON loading failure.
+  // The synchronized bundle avoids a second large content download on mobile and supports file URLs.
   const bundledData=window.AHMED_PORTFOLIO_DATA;
   const validContent=value=>value && value.projects && Array.isArray(value.documents) && Array.isArray(value.reports?.accounts);
   async function loadContent(){
-    if(location.protocol==='file:' && validContent(bundledData))return bundledData;
+    if(validContent(bundledData))return bundledData;
     try{
       const response=await fetch('content.json',{cache:'no-cache'});
       if(!response.ok)throw new Error('Content unavailable');
