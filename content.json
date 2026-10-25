@@ -40,26 +40,18 @@
       "media": [
         {
           "type": "image",
+          "src": "assets/projects/qelaa/qelaa-logo.jpg",
+          "alt": {
+            "ar": "شعار قلاع للتطوير العقاري في أسيوط الجديدة، مصر",
+            "en": "Qelaa Developments logo in New Assiut, Egypt"
+          }
+        },
+        {
+          "type": "image",
           "src": "assets/images/qelaa-ad.webp",
           "alt": {
             "ar": "نموذج إعلان قلاع للتطوير العقاري من أعمال سابقة",
             "en": "Past Qelaa Developments advertising creative"
-          }
-        },
-        {
-          "type": "image",
-          "src": "assets/results/boulevard-118.png",
-          "alt": {
-            "ar": "Boulevard — Engagement",
-            "en": "Boulevard — Engagement"
-          }
-        },
-        {
-          "type": "image",
-          "src": "assets/results/boulevard-57.png",
-          "alt": {
-            "ar": "بوليفارد — شهر 6",
-            "en": "Boulevard — Month 6"
           }
         },
         {
@@ -121,8 +113,6 @@
         }
       ],
       "documents": [
-        "boulevard-launch",
-        "boulevard-month2",
         "furnished-strategy",
         "qelaa-awareness",
         "qelaa-content",
@@ -133,7 +123,6 @@
       ],
       "sourcePages": [
         7,
-        25,
         26,
         28,
         29,
@@ -185,38 +174,6 @@
           "note": {
             "ar": "المؤشرات مذكورة في صفحتي 7 و26 لنفس الحالة؛ لا تُعد نتيجتين منفصلتين. المشاهدات والرسائل ليست مراحل قمع موحّد مثبت",
             "en": "The case is repeated on pages 7 and 26 and is counted once. Views and conversations are not presented as a verified single funnel"
-          }
-        },
-        {
-          "id": "boulevard-content",
-          "project": "qelaa",
-          "title": {
-            "ar": "بوليفارد — أداء المحتوى",
-            "en": "Boulevard — Content performance"
-          },
-          "sourcePages": [
-            25
-          ],
-          "channel": "meta",
-          "metrics": [
-            {
-              "value": "81K+",
-              "label": {
-                "ar": "مشاهدة حسب الملف",
-                "en": "Views as reported in the file"
-              }
-            },
-            {
-              "value": "378+",
-              "label": {
-                "ar": "تفاعل حسب الملف",
-                "en": "Interactions as reported in the file"
-              }
-            }
-          ],
-          "note": {
-            "ar": "مؤشرات كما وردت في الملف، تخص عينات مستقلة ولا تُجمع مع بقية النتائج",
-            "en": "Figures as presented in the file, for individual samples; they are not added to other results"
           }
         },
         {
@@ -343,7 +300,8 @@
         "content",
         "creative"
       ],
-      "thumbnail": "assets/social/facebook-187100657812459-06.jpg",
+      "thumbnail": "assets/projects/qelaa/qelaa-logo.jpg",
+      "thumbnailFit": "contain",
       "socialPage": "https://web.facebook.com/QelaaDevelopment?locale=ar_AR"
     },
     "boulevard": {
@@ -353,23 +311,23 @@
         "en": "Boulevard Compound"
       },
       "category": {
-        "ar": "عقارات / محتوى سوشيال ميديا",
-        "en": "Real estate / Social content"
+        "ar": "عقارات / أسيوط الجديدة، مصر",
+        "en": "Real estate / New Assiut, Egypt"
       },
       "scope": {
-        "ar": "تصاميم ومحتوى لعرض الحياة والخدمات والخصوصية داخل مشروع بوليفارد في أسيوط الجديدة. العينات من منشورات وإعلانات الصفحة، وتحافظ على النصوص والهوية كما نُشرت",
-        "en": "Social creative presenting life, services and privacy at Boulevard Compound in New Assiut. The samples come from page-related posts and ads, retaining the original identity and copy"
+        "ar": "تسويق مشروع بوليفارد السكني في أسيوط الجديدة، مصر، من خلال استراتيجية الحملات ومحتوى الإعلانات وتصاميم تعرض الحياة والخدمات والخصوصية. العينات من ملفات العمل ومنشورات الصفحة، وتحافظ على النصوص والهوية كما نُشرت",
+        "en": "Marketing Boulevard residential compound in New Assiut, Egypt, through campaign strategy, ad content and creative presenting its lifestyle, services and privacy. Samples come from working files and page posts, retaining the original identity and copy"
       },
       "contribution": {
         "ar": [
-          "تصميم منشورات إعلانية للمشروع",
-          "صياغة زوايا ورسائل للجمهور العقاري",
-          "ربط التصميم بالكابشن والعرض التسويقي"
+          "إعداد استراتيجية الحملة وزوايا الرسائل للجمهور العقاري",
+          "تصميم محتوى ومنشورات إعلانية للمشروع",
+          "ربط الكرياتيف بالكابشن والعرض ومتابعة مؤشرات الأداء"
         ],
         "en": [
-          "Real-estate social ad design",
-          "Audience messaging and creative angles",
-          "Connecting the visual, caption and offer"
+          "Campaign strategy and messaging angles for real-estate audiences",
+          "Social content and advertising creative for the compound",
+          "Connecting creative, copy and offer while reviewing performance indicators"
         ]
       },
       "tags": [
@@ -378,6 +336,78 @@
         "CREATIVE DESIGN"
       ],
       "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/boulevard/boulevard-cover.jpg",
+          "alt": {
+            "ar": "هوية مجمع بوليفارد السكني في أسيوط الجديدة، مصر",
+            "en": "Boulevard Compound identity in New Assiut, Egypt"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/boulevard/boulevard-creative-01.jpg",
+          "alt": {
+            "ar": "إعلان بوليفارد عن فرصة امتلاك وحدة سكنية",
+            "en": "Boulevard residential-unit advertising creative"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/boulevard/boulevard-creative-02.jpg",
+          "alt": {
+            "ar": "إعلان بوليفارد عن موقع الكمبوند وعنوانه",
+            "en": "Boulevard Compound location and address creative"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/boulevard/boulevard-creative-03.jpg",
+          "alt": {
+            "ar": "تصميم بوليفارد عن الراحة والهدوء داخل الكمبوند",
+            "en": "Boulevard creative highlighting comfort and quiet living"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/boulevard/boulevard-creative-04.jpg",
+          "alt": {
+            "ar": "تصميم بوليفارد عن الخصوصية في الكمبوند",
+            "en": "Boulevard Compound privacy-focused creative"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/boulevard/boulevard-creative-05.jpg",
+          "alt": {
+            "ar": "إعلان بوليفارد عن تجربة التجمع والخدمات",
+            "en": "Boulevard creative featuring community and amenities"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/boulevard/boulevard-creative-06.jpg",
+          "alt": {
+            "ar": "إعلان بوليفارد عن الراحة المناسبة للعائلة",
+            "en": "Boulevard creative about comfortable family living"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/results/boulevard-118.png",
+          "alt": {
+            "ar": "نتيجة تفاعل لحملة بوليفارد",
+            "en": "Boulevard campaign engagement result"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/results/boulevard-57.png",
+          "alt": {
+            "ar": "نتيجة حملة بوليفارد خلال الشهر السادس",
+            "en": "Boulevard campaign result for month six"
+          }
+        },
         {
           "type": "image",
           "src": "assets/social/facebook-658323514042142-01.jpg",
@@ -419,13 +449,53 @@
           }
         }
       ],
-      "thumbnail": "assets/social/facebook-658323514042142-04.jpg",
+      "thumbnail": "assets/projects/boulevard/boulevard-cover.jpg",
+      "thumbnailFit": "contain",
       "filters": [
         "creative",
         "content"
       ],
-      "documents": [],
-      "performance": [],
+      "documents": [
+        "boulevard-launch",
+        "boulevard-month2"
+      ],
+      "performance": [
+        {
+          "id": "boulevard-content",
+          "project": "boulevard",
+          "title": {
+            "ar": "بوليفارد — أداء المحتوى",
+            "en": "Boulevard — Content performance"
+          },
+          "sourcePages": [
+            25
+          ],
+          "channel": "meta",
+          "metrics": [
+            {
+              "value": "81K+",
+              "label": {
+                "ar": "مشاهدة حسب الملف",
+                "en": "Views as reported in the file"
+              }
+            },
+            {
+              "value": "378+",
+              "label": {
+                "ar": "تفاعل حسب الملف",
+                "en": "Interactions as reported in the file"
+              }
+            }
+          ],
+          "note": {
+            "ar": "مؤشرات كما وردت في الملف، تخص عينات مستقلة ولا تُجمع مع بقية النتائج",
+            "en": "Figures as presented in the file, for individual samples; they are not added to other results"
+          }
+        }
+      ],
+      "sourcePages": [
+        25
+      ],
       "socialPage": "https://web.facebook.com/1Boulevard.Compound?locale=ar_AR"
     },
     "gizawy": {
@@ -1365,77 +1435,6 @@
         "creative"
       ],
       "thumbnail": "assets/images/truffle-burger.webp"
-    },
-    "websites": {
-      "title": {
-        "ar": "مواقع وصفحات هبوط",
-        "en": "Websites & landing pages"
-      },
-      "category": {
-        "ar": "مواقع وصفحات هبوط / مصر",
-        "en": "Websites & landing pages / Egypt"
-      },
-      "scope": {
-        "ar": "نماذج من موقع قلاع للتطوير وصفحة هبوط لتنسيق الحدائق، بواجهات تركز على توضيح العرض وتسهيل التواصل",
-        "en": "Samples from the Qelaa corporate website and a landscaping landing page, with interfaces focused on the offer and contact journey"
-      },
-      "contribution": {
-        "ar": [
-          "تصميم وتطوير واجهات متجاوبة للأجهزة المختلفة",
-          "ترتيب الأقسام والرسائل ونقاط التواصل",
-          "العمل على صفحات ومحتوى عربي وإنجليزي حسب المشروع"
-        ],
-        "en": [
-          "Responsive interface design and development",
-          "Section structure, messaging and contact touchpoints",
-          "Arabic and English pages and content as needed by the project"
-        ]
-      },
-      "tags": [
-        "WEB DEVELOPMENT",
-        "LANDING PAGES",
-        "CONVERSION JOURNEY",
-        "WordPress",
-        "Shopify",
-        "Salla",
-        "EasyOrder"
-      ],
-      "media": [
-        {
-          "type": "image",
-          "src": "assets/images/qelaa-website.webp",
-          "alt": {
-            "ar": "نموذج واجهة موقع قلاع للتطوير",
-            "en": "Qelaa Developments website interface sample"
-          }
-        },
-        {
-          "type": "image",
-          "src": "assets/images/landscape-website.webp",
-          "alt": {
-            "ar": "نموذج صفحة هبوط لتنسيق الحدائق",
-            "en": "Landscaping landing page sample"
-          }
-        },
-        {
-          "type": "image",
-          "src": "assets/portfolio/covers/web-cro.webp",
-          "alt": {
-            "ar": "نماذج المواقع والتجارة الإلكترونية من الملف",
-            "en": "Web and e-commerce examples from the file"
-          }
-        }
-      ],
-      "sourcePages": [
-        14,
-        24
-      ],
-      "performance": [],
-      "id": "websites",
-      "filters": [
-        "web"
-      ],
-      "thumbnail": "assets/images/qelaa-website.webp"
     },
     "ai-visuals": {
       "title": {
@@ -14930,7 +14929,7 @@
     },
     {
       "id": "boulevard-content",
-      "project": "qelaa",
+      "project": "boulevard",
       "title": {
         "ar": "بوليفارد — أداء المحتوى",
         "en": "Boulevard — Content performance"

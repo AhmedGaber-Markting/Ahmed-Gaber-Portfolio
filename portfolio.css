@@ -622,6 +622,15 @@ h1>span {
   background:#edecef
 }
 
+.project-image.brand-cover {
+  background:#11100f
+}
+
+.project-image.brand-cover>img {
+  object-fit:contain;
+  padding:8px;
+}
+
 .project-index {
   position:absolute;
   top:12px;

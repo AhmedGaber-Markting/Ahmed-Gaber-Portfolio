@@ -44,9 +44,13 @@
   function renderWork(){
     const filters=[['all','الكل','All work'],['creative','الإنتاج والتصميم','Creative & design'],['video','فيديوهات AI','AI video'],['performance','الحملات والنتائج','Paid media'],['content','المحتوى والخطط','Content & strategy'],['web','المواقع','Websites']];
     renderFilters('#work-filters',filters,state.work,key=>{state.work=key;state.workAll=false;renderWork();});
-    const projects=Object.values(data.projects).filter(p=>state.work==='all'||p.filters.includes(state.work));
+    const matchingProjects=Object.values(data.projects).filter(p=>state.work==='all'||p.filters.includes(state.work));
+    const featuredProjectIds=new Set(['qelaa','boulevard']);
+    const secondaryProjects=matchingProjects.filter(p=>featuredProjectIds.has(p.id));
+    const otherProjects=matchingProjects.filter(p=>!featuredProjectIds.has(p.id));
+    const projects=[...otherProjects.slice(0,3),...secondaryProjects,...otherProjects.slice(3)];
     const shown=state.workAll?projects:projects.slice(0,9);
-    $('#work-grid').innerHTML=shown.map((p,i)=>`<button class="project-card" type="button" data-project="${e(p.id)}" aria-label="${e(tr('استعرض مشروع ','Explore ')+loc(p.title))}"><div class="project-image ${p.filters.every(f=>f==='performance'||f==='content')?'contain':''}"><span class="project-index">${String(Object.keys(data.projects).indexOf(p.id)+1).padStart(2,'0')} / AG</span><img src="${e(p.thumbnail)}" alt="${e(loc(p.title))}" loading="${i<2?'eager':'lazy'}" decoding="async" width="600" height="480"><span class="project-arrow" aria-hidden="true">↗</span></div><div class="project-info"><div><h3>${e(loc(p.title))}</h3><p class="project-category">${e(loc(p.category))}</p></div><span class="project-tag" dir="ltr">${e(p.tags?.[0]||'CREATIVE WORK')}</span></div></button>`).join('');
+    $('#work-grid').innerHTML=shown.map((p,i)=>`<button class="project-card" type="button" data-project="${e(p.id)}" aria-label="${e(tr('استعرض مشروع ','Explore ')+loc(p.title))}"><div class="project-image ${p.thumbnailFit==='contain'?'brand-cover':p.filters.every(f=>f==='performance'||f==='content')?'contain':''}"><span class="project-index">${String(Object.keys(data.projects).indexOf(p.id)+1).padStart(2,'0')} / AG</span><img src="${e(p.thumbnail)}" alt="${e(loc(p.title))}" loading="${i<2?'eager':'lazy'}" decoding="async" width="600" height="480"><span class="project-arrow" aria-hidden="true">↗</span></div><div class="project-info"><div><h3>${e(loc(p.title))}</h3><p class="project-category">${e(loc(p.category))}</p></div><span class="project-tag" dir="ltr">${e(p.tags?.[0]||'CREATIVE WORK')}</span></div></button>`).join('');
     $$('[data-project]',$('#work-grid')).forEach(btn=>btn.addEventListener('click',()=>openProject(btn.dataset.project)));
     $('#work-count').textContent=countCopy(shown.length,projects.length,'مشروعًا','projects');
     $('#work-more').hidden=projects.length<=9;
