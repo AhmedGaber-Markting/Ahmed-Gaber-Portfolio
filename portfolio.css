@@ -1571,8 +1571,9 @@ body.modal-open {
 }
 
 .viewer-close:hover {
-  background:var(--purple);
-  color:white
+  background:rgba(31, 82, 117, 0.7);
+  border:1px solid var(--gold);
+  color:var(--gold-light)
 }
 
 #viewer-body {
@@ -3690,7 +3691,8 @@ main > section {
 }
 
 .project-card:hover .project-arrow  {
-  background: #3a294b;
+  background: rgba(31, 82, 117, 0.78);
+  border-color: var(--gold);
   color: var(--gold-light);
 }
 
