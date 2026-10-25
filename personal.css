@@ -1869,6 +1869,7 @@ html, body {
   .pipeline {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     gap: 14px;
     margin-top: 28px;
   }
@@ -1876,15 +1877,18 @@ html, body {
     display: none !important;
   }
   .p-step {
-    flex: 1 1 100%;
+    flex: 0 0 auto;
+    width: 100%;
     background: rgba(20, 19, 27, 0.7);
     border: 1px solid var(--card-border);
     border-radius: 14px;
     padding: 18px 20px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
     align-items: center;
     text-align: start;
-    gap: 18px;
+    column-gap: 18px;
+    row-gap: 4px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
     transition: transform 0.25s, border-color 0.25s, background 0.25s;
   }
@@ -1893,6 +1897,8 @@ html, body {
     background: rgba(24, 22, 33, 0.95);
   }
   .p-step-icon {
+    grid-column: 1;
+    grid-row: 1 / span 2;
     width: 48px;
     height: 48px;
     font-size: 1.35rem;
@@ -1900,10 +1906,14 @@ html, body {
     flex-shrink: 0;
   }
   .p-step-label {
+    grid-column: 2;
+    min-width: 0;
     font-size: 0.98rem;
-    margin-bottom: 4px;
+    margin-bottom: 0;
   }
   .p-step-sub {
+    grid-column: 2;
+    min-width: 0;
     font-size: 0.82rem;
     line-height: 1.4;
   }
@@ -1953,7 +1963,8 @@ html, body {
   }
   .p-step {
     padding: 14px 16px;
-    gap: 14px;
+    grid-template-columns: 42px minmax(0, 1fr);
+    column-gap: 14px;
   }
   .p-step-icon {
     width: 42px;
@@ -1980,10 +1991,14 @@ html, body {
   }
 }
 
-/* Visibility guarantee for revealed elements */
-.reveal.is-visible {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+/* Mobile content is independent of animation state, including restored pages. */
+@media (max-width:960px), (hover:none), (pointer:coarse) {
+  .motion-ready .reveal,
+  .motion-ready .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
 }
 
 /* Navigation Drawer for Tablets & Narrow Screens (<= 960px) */

@@ -3804,14 +3804,31 @@ dialog[open]  {
 }
 
 .motion-ready .reveal  {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity .65s ease var(--reveal-delay,0ms),transform .65s ease var(--reveal-delay,0ms);
+  /* Content must stay readable even when scroll observers never fire. */
+  opacity: 1;
+  transform: none;
 }
 
 .motion-ready .reveal.is-visible  {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
+}
+
+@media (min-width:961px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  .motion-ready .reveal.is-visible {
+    animation: portfolio-reveal .55s ease var(--reveal-delay,0ms) backwards;
+  }
+}
+
+@keyframes portfolio-reveal {
+  from {
+    opacity: .85;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @keyframes client-loop  {

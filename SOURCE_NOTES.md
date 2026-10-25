@@ -30,4 +30,11 @@ Initial HTML and runtime language toggling dynamically synchronize both elements
 Navigation & Actions refinement:
 - The redundant static text link "العودة للأعلى ↑" at the bottom of the footer was removed in favor of the persistent, smooth-scrolling floating button (#fab-back-top). The footer layout was balanced with the PDF download action aligned opposite the copyright notice.
 
+Mobile visibility correction:
+- Scroll reveal no longer hides pending content. Desktop animation starts from 85% opacity; touch/narrow screens render immediately and do not depend on IntersectionObserver callbacks.
+- Mobile pipeline steps use equal-width cards with a two-column icon/text grid; all five labels and descriptions follow the selected language.
+- Four Doctor Plus document tables were stored as flat cell arrays, causing `row.map is not a function` on opening the plan. Their rows are restored with 3, 2, 2, and 4 columns respectively, without changing any cell text. The renderer also tolerates unexpected flat rows without aborting the viewer.
+- A queued dialog close event cannot clear a newly reopened preview.
+- Local asset references resolve, and report data, project associations and original media remain unchanged. Browser layout verification uses Chromium viewport emulation, not physical devices. All 21 original MP4 files were independently probed as H.264 video with AAC audio; the test browser's missing H.264 decoder prevents using it to verify decoded playback.
+
 

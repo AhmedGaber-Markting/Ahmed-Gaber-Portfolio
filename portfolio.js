@@ -22,6 +22,11 @@
     landingTitle:'High-converting landing pages for brands',landingDesc:'Custom advertising landing pages engineered to convert every paid click into a verified sale or lead, eliminating friction and maximizing ROAS',
     marketsTitle:'Markets & regions I operate in',marketsDesc:'Cross-border execution across Egypt and the Gulf with deep understanding of localized buyer psychology and high-converting channels',
     pipelineTitle:'The growth pipeline',pipelineDesc:'From deep research to compound scale: how ideas turn into measurable market momentum',
+    pipelineResearch:'1. Research & data',pipelineResearchDesc:'Market and competitor analysis',
+    pipelineStrategy:'2. Strategy & angles',pipelineStrategyDesc:'Messaging and persuasive hooks',
+    pipelineLanding:'3. CRO landing page',pipelineLandingDesc:'A focused conversion experience',
+    pipelineLaunch:'4. Campaign launch',pipelineLaunchDesc:'Multi-platform execution and budget management',
+    pipelineScale:'5. ROAS growth',pipelineScaleDesc:'AI creative iteration and investment scaling',
     faqTitle:'Frequently asked questions',faqDesc:'Everything brand owners ask about media buying, CRO landing pages, and AI-driven scale',
     previewFull:'Inspect full design ↗',requestSimilarLp:'Request similar page ↗',seeTheWall:'Explore market work →'
   };
@@ -341,14 +346,26 @@
     showViewer(loc(r.title),r.platform.toUpperCase()+' / PERFORMANCE EVIDENCE',`<div id="viewer-media"></div>${chips(r.metrics)}<p class="source-note">${e(loc(r.note))}</p><p class="source-note evidence-period" dir="${r.period?.length?'ltr':'auto'}">${e(periodText(r))}</p>`);
     setupMedia((r.images||[{src:r.src}]).map(i=>({type:'image',src:i.src,alt:r.title})));
   }
+  function renderDocumentBlock(block){
+    if(block.type==='heading')return `<h3>${e(block.text)}</h3>`;
+    if(block.type==='table'){
+      const rows=Array.isArray(block.rows)?block.rows:[];
+      return `<div class="table-wrap"><table><tbody>${rows.map((row,i)=>`<tr>${(Array.isArray(row)?row:[row]).map(cell=>`<${i?'td':'th'}>${e(cell)}</${i?'td':'th'}>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+    }
+    return `<p>${e(block.text)}</p>`;
+  }
   function openPlan(id){
     const doc=data.documents.find(d=>d.id===id);if(!doc)return;
-    const blocks=(doc.blocks||[]).map(b=>b.type==='heading'?`<h3>${e(b.text)}</h3>`:b.type==='table'?`<div class="table-wrap"><table><tbody>${b.rows.map((row,i)=>`<tr>${row.map(cell=>`<${i?'td':'th'}>${e(cell)}</${i?'td':'th'}>`).join('')}</tr>`).join('')}</tbody></table></div>`:`<p>${e(b.text)}</p>`).join('');
+    const blocks=(doc.blocks||[]).map(renderDocumentBlock).join('');
     showViewer(loc(doc.title),`${doc.brand||'CONTENT STRATEGY'} / ${doc.format}`,`<p class="source-note">${e(loc(doc.description))}</p><a class="source-link" href="${safeUrl(doc.viewPdf||doc.src)}" target="_blank" rel="noopener noreferrer">${tr('افتح الملف كاملًا','Open the complete file')} ↗</a> <a class="source-link" href="${safeUrl(doc.src)}" download>${tr('تنزيل الأصل','Download original')} ↙</a><div class="document-pages">${(doc.previews||[]).map((src,i)=>`<img src="${e(src)}" loading="lazy" alt="${e(loc(doc.title)+' — '+tr('صفحة ','page ')+(doc.previewSourcePages?.[i]||i+1))}">`).join('')}</div>${blocks?`<details class="monthly-details"><summary>${tr('قراءة محتوى الخطة بالكامل داخل الموقع','Read the complete plan on this site')}</summary><article class="document-text" dir="rtl" lang="ar">${blocks}</article></details>`:''}<p class="source-note">${tr('تخص العروض والأسعار سياق إعداد الملف','Offers and prices belong to the file’s original preparation context')}</p>`);
   }
   function closeViewer(){viewer.close();}
   $('#viewer-close').addEventListener('click',closeViewer);
-  viewer.addEventListener('close',()=>{$$('video',viewer).forEach(v=>v.pause());document.body.classList.remove('modal-open');$('#viewer-body').innerHTML='';media=[];});
+  viewer.addEventListener('close',()=>{
+    // A queued close event must not erase a preview that has just reopened.
+    if(viewer.open)return;
+    $$('video',viewer).forEach(v=>v.pause());document.body.classList.remove('modal-open');$('#viewer-body').innerHTML='';media=[];
+  });
   viewer.addEventListener('click',evt=>{if(evt.target===viewer){const r=viewer.getBoundingClientRect();if(evt.clientX<r.left||evt.clientX>r.right||evt.clientY<r.top||evt.clientY>r.bottom)closeViewer();}});
 
   // The client reel has a single accessible list and one visual loop copy.
@@ -371,17 +388,21 @@
   }
   $('#clients-motion').addEventListener('click',()=>{clientsPaused=!clientsPaused;updateClientsMotion();});
   motionPreference.addEventListener('change',()=>{clientsPaused=motionPreference.matches;updateClientsMotion();observeReveals();});
+  const revealPreference=window.matchMedia('(min-width: 961px) and (hover: hover) and (pointer: fine)');
   const revealObserver='IntersectionObserver' in window?new IntersectionObserver(entries=>{
     entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target);}});
   },{threshold:0.01,rootMargin:'0px 0px 100px 0px'}):null;
+  const canAnimateReveals=()=>revealObserver && revealPreference.matches && !motionPreference.matches;
   function observeReveals(){
-    if(!revealObserver || motionPreference.matches){
+    const selector = '.section-top, .service-item, .project-card, .landing-card, .market-row-item, .p-step, .faq-item, .evidence-card, .social-card, .video-card, .plan-card, .about-copy, .about-brand, .contact-layout>div, .contact form, .reveal';
+    // Re-rendering filters/languages must not leave detached cards observed.
+    revealObserver?.disconnect();
+    if(!canAnimateReveals()){
       document.documentElement.classList.remove('motion-ready');
-      $$('.reveal').forEach(el=>el.classList.add('is-visible'));
+      $$(selector).forEach(el=>el.classList.add('reveal','is-visible'));
       return;
     }
     document.documentElement.classList.add('motion-ready');
-    const selector = '.section-top, .service-item, .project-card, .landing-card, .market-row-item, .p-step, .faq-item, .evidence-card, .social-card, .video-card, .plan-card, .about-copy, .about-brand, .contact-layout>div, .contact form, .reveal';
     $$(selector).forEach((el,i)=>{
       if(el.classList.contains('is-visible'))return;
       el.classList.add('reveal');
@@ -396,9 +417,10 @@
       }
     });
   }
+  revealPreference.addEventListener('change',observeReveals);
   // Safety net on scroll for dynamic viewports
   window.addEventListener('scroll',()=>{
-    if(!revealObserver || motionPreference.matches) return;
+    if(!canAnimateReveals()) return;
     const pending = $$('.reveal:not(.is-visible)');
     if(!pending.length) return;
     const vh = window.innerHeight;
@@ -406,6 +428,7 @@
       const r = el.getBoundingClientRect();
       if(r.top < vh + 100 && r.bottom > -50){
         el.classList.add('is-visible');
+        revealObserver.unobserve(el);
       }
     });
   },{passive:true});
