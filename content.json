@@ -1145,6 +1145,101 @@
       ],
       "thumbnail": "assets/video/posters/ai-01.webp"
     },
+    "dalil-store": {
+      "title": {
+        "ar": "متجر دليل",
+        "en": "Dalil Store"
+      },
+      "category": {
+        "ar": "تصاميم إعلانية / اتصالات وإنترنت",
+        "en": "Ad creative / Telecom & internet"
+      },
+      "scope": {
+        "ar": "عينات إعلانية لمتجر دليل تعرض باقات شرائح الإنترنت ومزاياها وأسعارها عبر تصاميم موجهة لعملاء الاتصالات في السعودية.",
+        "en": "Advertising samples for Dalil Store, showcasing mobile internet plans, benefits and pricing through creative aimed at telecom customers in Saudi Arabia."
+      },
+      "contribution": {
+        "ar": [
+          "تقديم عروض باقات STC وموبايلي بصيغ بصرية متنوعة",
+          "إبراز مزايا الباقات والأسعار وخيارات التقسيط داخل التصميم",
+          "إعداد عينات إعلانية لمواقف استخدام وترفيه واتصال مختلفة"
+        ],
+        "en": [
+          "Presenting STC and Mobily plans through varied visual formats",
+          "Highlighting plan benefits, pricing and installment options in the creative",
+          "Preparing advertising samples for different connectivity and entertainment scenarios"
+        ]
+      },
+      "tags": [
+        "AD CREATIVE",
+        "TELECOM",
+        "SOCIAL MEDIA"
+      ],
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/dalil-store/creative-01.png",
+          "alt": {
+            "ar": "غلاف حملة متجر دليل لباقات الإنترنت غير المحدود",
+            "en": "Dalil Store campaign cover for unlimited internet plans"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/dalil-store/creative-02.png",
+          "alt": {
+            "ar": "إعلان باقة STC 5G أثناء اللعب",
+            "en": "STC 5G plan creative for gaming"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/dalil-store/creative-03.png",
+          "alt": {
+            "ar": "إعلان باقة موبايلي 5G وتجربة القيادة",
+            "en": "Mobily 5G plan creative with a driving scene"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/dalil-store/creative-04.png",
+          "alt": {
+            "ar": "إعلان باقة موبايلي 5G واستخدام الإنترنت في المخيم",
+            "en": "Mobily 5G plan creative for internet use while camping"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/dalil-store/creative-05.png",
+          "alt": {
+            "ar": "إعلان سرعة تجربة اللعب وباقة STC 5G",
+            "en": "Gaming speed and STC 5G plan creative"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/dalil-store/creative-06.png",
+          "alt": {
+            "ar": "تصميم باقات إنترنت منزلية للعائلة",
+            "en": "Home internet plans creative for families"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/dalil-store/creative-07.png",
+          "alt": {
+            "ar": "تصميم إعلاني إضافي لحملة متجر دليل",
+            "en": "Additional advertising creative for Dalil Store"
+          }
+        }
+      ],
+      "id": "dalil-store",
+      "filters": [
+        "creative",
+        "content"
+      ],
+      "thumbnail": "assets/projects/dalil-store/creative-01.png"
+    },
     "basit": {
       "title": {
         "ar": "بسيط",
@@ -17941,8 +18036,8 @@
         "ar": "بورتفوليو أحمد جابر",
         "en": "Ahmed Gaber portfolio"
       },
-      "pages": 48,
-      "bytes": 14625233
+      "pages": 28,
+      "bytes": 18972639
     }
   },
   "landingPages": [

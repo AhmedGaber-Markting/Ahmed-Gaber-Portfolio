@@ -80,14 +80,14 @@ body {
 .hero-copy > .hero-description,
 .hero-copy > .hero-actions,
 .hero-copy > .market,
-.hero-copy > .portfolio-download {
+.hero-copy > .download-actions {
   animation: hero-rise .65s cubic-bezier(.16, 1, .3, 1) both;
 }
 .hero-copy > h1 { animation-delay: 70ms; }
 .hero-copy > .hero-description { animation-delay: 130ms; }
 .hero-copy > .hero-actions { animation-delay: 190ms; }
 .hero-copy > .market { animation-delay: 250ms; }
-.hero-copy > .portfolio-download { animation-delay: 310ms; }
+.hero-copy > .download-actions { animation-delay: 310ms; }
 .hero-art { animation: hero-arrive .8s cubic-bezier(.16, 1, .3, 1) 120ms both; }
 
 /* Hero Portrait Art */
@@ -137,6 +137,9 @@ body {
 }
 
 .about-identity .scene-emblem > span { font-size: 8px; letter-spacing: 2px; }
+.about-identity .scene-emblem {
+  width: min(64%, 300px);
+}
 .scene-seal { letter-spacing: 0; color: var(--gold); }
 .scene-top { letter-spacing: 1px; }
 .frame-corner { display: none !important; }
@@ -218,6 +221,33 @@ nav a.active::after {
   text-decoration: none;
   transition: border-color .3s, box-shadow .3s, transform .3s;
   max-width: 100%;
+}
+.download-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+  margin-top: 24px;
+}
+.download-actions .portfolio-download {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  min-height: 68px;
+  height: 100%;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 0;
+  padding-inline: 14px;
+}
+.download-actions .portfolio-download > span:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+}
+.download-actions .download-arrow {
+  flex: 0 0 auto;
+  margin-inline-start: 0;
 }
 .portfolio-download strong {
   display: block;
@@ -437,9 +467,12 @@ form input:focus, form select:focus, form textarea:focus {
   .hero-art .scene-top { font-size: 7px; }
   .hero-art .scene-bottom { font-size: 7px; bottom: 17px; }
   html[dir=ltr] .hero h1 { font-size: clamp(36px, 10vw, 48px); }
-  .portfolio-download { margin-top: 20px; padding: 11px 14px; }
+  .download-actions { margin-top: 20px; gap: 10px; }
+  .download-actions .portfolio-download { padding-inline: 10px; }
   .portfolio-download strong { font-size: 11.5px; }
-  .download-arrow { margin-inline-start: 8px; }
+}
+@media(max-width:960px) {
+  .download-actions { grid-template-columns: 1fr; }
 }
 
 /* Reduced Motion Support */
@@ -584,6 +617,13 @@ form input:focus, form select:focus, form textarea:focus {
   flex-direction: column;
   gap: 10px;
   margin-top: 24px;
+}
+.cv-downloads {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-block: 24px;
 }
 .channel-pill {
   display: flex;
