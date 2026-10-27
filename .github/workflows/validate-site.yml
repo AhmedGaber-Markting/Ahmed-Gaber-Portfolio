@@ -1,0 +1,14 @@
+name: Validate portfolio
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate content, assets, and image budgets
+        shell: pwsh
+        run: ./tools/validate-site.ps1

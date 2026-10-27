@@ -110,6 +110,60 @@
             "ar": "في سكني مفروش مش محتاج تتنازل عن الموقع أو السعر أو نظام السداد. ✅",
             "en": "Qelaa Developments — Creative sample 5"
           }
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/qelaa/skni-1.webp",
+          "thumbnail": "assets/projects/qelaa/thumb-skni-1.webp",
+          "alt": {
+            "ar": "تصميم حملة قلاع — عينة جديدة 1",
+            "en": "Qelaa campaign design — new sample 1"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/qelaa/skni-2.webp",
+          "thumbnail": "assets/projects/qelaa/thumb-skni-2.webp",
+          "alt": {
+            "ar": "تصميم حملة قلاع — عينة جديدة 2",
+            "en": "Qelaa campaign design — new sample 2"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/qelaa/skni-3.webp",
+          "thumbnail": "assets/projects/qelaa/thumb-skni-3.webp",
+          "alt": {
+            "ar": "تصميم حملة قلاع — عينة جديدة 3",
+            "en": "Qelaa campaign design — new sample 3"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/qelaa/skni-4.webp",
+          "thumbnail": "assets/projects/qelaa/thumb-skni-4.webp",
+          "alt": {
+            "ar": "تصميم حملة قلاع — عينة جديدة 4",
+            "en": "Qelaa campaign design — new sample 4"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/qelaa/skni-5.webp",
+          "thumbnail": "assets/projects/qelaa/thumb-skni-5.webp",
+          "alt": {
+            "ar": "تصميم حملة قلاع — عينة جديدة 5",
+            "en": "Qelaa campaign design — new sample 5"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/qelaa/skni-6.webp",
+          "thumbnail": "assets/projects/qelaa/thumb-skni-6.webp",
+          "alt": {
+            "ar": "تصميم حملة قلاع — عينة جديدة 6",
+            "en": "Qelaa campaign design — new sample 6"
+          }
         }
       ],
       "documents": [
@@ -2956,6 +3010,7 @@
     },
     {
       "id": "traffic-4450",
+      "platform": "tiktok",
       "group": "traffic",
       "title": {
         "ar": "عينة حملة — نقرات الوجهة",
@@ -3222,6 +3277,7 @@
     },
     {
       "id": "traffic-484",
+      "platform": "tiktok",
       "group": "traffic",
       "title": {
         "ar": "عينة حملة — الوصول والزيارات",
@@ -3270,6 +3326,7 @@
     },
     {
       "id": "video-7569",
+      "platform": "tiktok",
       "group": "traffic",
       "title": {
         "ar": "عينة حملة — مشاهدات الفيديو",
@@ -3318,6 +3375,7 @@
     },
     {
       "id": "paid-12511",
+      "platform": "snapchat",
       "group": "traffic",
       "title": {
         "ar": "عينة حملة — ظهور وزيارات",

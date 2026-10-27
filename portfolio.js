@@ -97,7 +97,7 @@
     const blob=new Blob(['\uFEFF'+rows.map(r=>r.map(quote).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=`Ahmed_Gaber_${a.name.replace(/\s+/g,'_')}_2026-04-01_2026-10-22.csv`;document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
   }
   function allEvidence(){
-    return [...data.results.map(r=>({...r,platform:'meta',image:r.src,metrics:[{value:n(r.value),label:r.metric},...(r.cost!=null?[{value:n(r.cost,2)+' '+r.currency,label:{ar:'تكلفة النتيجة',en:'Cost per result'}}]:[]),...(r.extra||[])],note:r.context})),...data.platformResults.map(r=>({...r,image:r.images[0].src}))];
+    return [...data.results.map(r=>({...r,platform:r.platform||'meta',image:r.src,metrics:[{value:n(r.value),label:r.metric},...(r.cost!=null?[{value:n(r.cost,2)+' '+r.currency,label:{ar:'تكلفة النتيجة',en:'Cost per result'}}]:[]),...(r.extra||[])],note:r.context})),...data.platformResults.map(r=>({...r,image:r.images[0].src}))];
   }
   function periodText(r){return r.period?.length?`${r.period[0]} → ${r.period[1]}`:tr('الفترة الكاملة غير ظاهرة في المصدر','Complete period not visible in the source');}
   const platformBadges = {
@@ -327,10 +327,10 @@
     if(!media.length)return;
     $$('video',$('#media-stage')).forEach(v=>v.pause());
     const m=media[mediaIndex];
-    $('#media-stage').innerHTML=m.type==='video'?`<video controls playsinline preload="metadata" ${m.poster?`poster="${e(m.poster)}"`:''} aria-label="${e(loc(m.alt)||tr('فيديو المشروع','Project video'))}"><source src="${e(m.src)}" type="video/mp4">${tr('متصفحك لا يدعم تشغيل الفيديو','Your browser does not support this video')}</video>`:`<img src="${e(m.src)}" alt="${e(loc(m.alt)||$('#viewer-title').textContent)}">`;
+    $('#media-stage').innerHTML=m.type==='video'?`<video controls playsinline preload="none" ${m.poster?`poster="${e(m.poster)}"`:''} aria-label="${e(loc(m.alt)||tr('فيديو المشروع','Project video'))}"><source src="${e(m.src)}" type="video/mp4">${tr('متصفحك لا يدعم تشغيل الفيديو','Your browser does not support this video')}</video>`:`<img src="${e(m.src)}" alt="${e(loc(m.alt)||$('#viewer-title').textContent)}">`;
     $('#media-position').textContent=`${mediaIndex+1} / ${media.length}`;
     $('#media-prev').disabled=$('#media-next').disabled=media.length===1;
-    $('#media-thumbs').innerHTML=media.map((x,i)=>`<button type="button" class="${i===mediaIndex?'active':''}" data-media="${i}" aria-label="${e(tr('عينة ','Sample ')+(i+1))}" aria-pressed="${i===mediaIndex}"><img src="${e(x.poster||x.src)}" alt="" loading="lazy">${x.type==='video'?'<span aria-hidden="true">▶</span>':''}</button>`).join('');
+    $('#media-thumbs').innerHTML=media.map((x,i)=>`<button type="button" class="${i===mediaIndex?'active':''}" data-media="${i}" aria-label="${e(tr('عينة ','Sample ')+(i+1))}" aria-pressed="${i===mediaIndex}"><img src="${e(x.thumbnail||x.poster||x.src)}" alt="" loading="lazy" decoding="async">${x.type==='video'?'<span aria-hidden="true">▶</span>':''}</button>`).join('');
     $$('[data-media]',$('#media-thumbs')).forEach(btn=>btn.addEventListener('click',()=>{mediaIndex=Number(btn.dataset.media);renderMedia();}));
   }
   const chips = metrics => `<div class="metric-chips">${metrics.map(m=>`<div class="metric-chip"><strong dir="ltr">${e(m.value)}</strong><span>${e(loc(m.label))}</span></div>`).join('')}</div>`;
@@ -357,9 +357,39 @@
     }
     return `<p>${e(block.text)}</p>`;
   }
-  function openPlan(id){
+  let documentContentPromise;
+  function loadDocumentContent(){
+    if(window.AHMED_PORTFOLIO_DOCUMENT_CONTENT)return Promise.resolve(window.AHMED_PORTFOLIO_DOCUMENT_CONTENT);
+    if(!documentContentPromise){
+      documentContentPromise=new Promise((resolve,reject)=>{
+        const script=document.createElement('script');
+        script.src='document-content.js?v=20261027-03';
+        script.onload=()=>{
+          const content=window.AHMED_PORTFOLIO_DOCUMENT_CONTENT;
+          if(!content){documentContentPromise=null;reject(new Error('Document content bundle is invalid'));return;}
+          resolve(content);
+        };
+        script.onerror=()=>{documentContentPromise=null;reject(new Error('Document content bundle could not be loaded'));};
+        document.head.append(script);
+      });
+    }
+    return documentContentPromise;
+  }
+  async function openPlan(id){
     const doc=data.documents.find(d=>d.id===id);if(!doc)return;
-    const blocks=(doc.blocks||[]).map(renderDocumentBlock).join('');
+    let documentBlocks=doc.blocks;
+    if(!Array.isArray(documentBlocks)){
+      try{
+        const documentContent=await loadDocumentContent();
+        documentBlocks=documentContent[id];
+        if(!Array.isArray(documentBlocks))throw new Error(`Missing document content: ${id}`);
+      }catch(error){
+        console.error('Document content:',error);
+        showToast(tr('تعذر تحميل تفاصيل الخطة. حاول مرة أخرى','Could not load plan details. Please try again'));
+        return;
+      }
+    }
+    const blocks=documentBlocks.map(renderDocumentBlock).join('');
     showViewer(loc(doc.title),`${doc.brand||'CONTENT STRATEGY'} / ${doc.format}`,`<p class="source-note">${e(loc(doc.description))}</p><a class="source-link" href="${safeUrl(doc.viewPdf||doc.src)}" target="_blank" rel="noopener noreferrer">${tr('افتح الملف كاملًا','Open the complete file')} ↗</a> <a class="source-link" href="${safeUrl(doc.src)}" download>${tr('تنزيل الأصل','Download original')} ↙</a><div class="document-pages">${(doc.previews||[]).map((src,i)=>`<img src="${e(src)}" loading="lazy" alt="${e(loc(doc.title)+' — '+tr('صفحة ','page ')+(doc.previewSourcePages?.[i]||i+1))}">`).join('')}</div>${blocks?`<details class="monthly-details"><summary>${tr('قراءة محتوى الخطة بالكامل داخل الموقع','Read the complete plan on this site')}</summary><article class="document-text" dir="rtl" lang="ar">${blocks}</article></details>`:''}<p class="source-note">${tr('تخص العروض والأسعار سياق إعداد الملف','Offers and prices belong to the file’s original preparation context')}</p>`);
   }
   function closeViewer(){viewer.close();}
